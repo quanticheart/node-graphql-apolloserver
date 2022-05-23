@@ -2,23 +2,23 @@ const Produto = require("../models/Produtos")
 
 const produtoResolver = {
     Query: {
-        produtos() {
-            return Produto.find();
+        async produtos() {
+            return await Produto.find();
         },
-        produto(_, {id}) {
-            return Produto.findById(id)
+        async produto(_, {id}) {
+            return await Produto.findById(id)
         }
     },
     Mutation: {
-        cadastro(_, {produto}) {
+        async cadastro(_, {produto}) {
             const novoProduto = new Produto(produto);
-            novoProduto.save();
+            return await novoProduto.save();
         },
-        atualizar(_, {id, produto}) {
-            return Produto.findByIdAndUpdate(id, produto, {new: true});
+        async atualizar(_, {id, produto}) {
+            return await Produto.findByIdAndUpdate(id, produto, {new: true});
         },
-        deletar(_, {id}) {
-            return Produto.findByIdAndDelete(id);
+        async deletar(_, {id}) {
+            return await Produto.findByIdAndDelete(id);
         }
     }
 }
